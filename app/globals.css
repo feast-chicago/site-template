@@ -48,10 +48,6 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-
-
-
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -61,6 +57,12 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer components {
+  .page-wrapper {
+    @apply flex flex-col grow p-10;
   }
 }
 
