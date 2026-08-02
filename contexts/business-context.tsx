@@ -24,7 +24,7 @@ export default function BusinessContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { isLoaded, isSignedIn } = useAuth();
+  const { isLoaded } = useAuth();
 
   const [lastUpdated, setLastUpdated] = useState<string>("");
   const [business, setBusiness] = useState<Business | null>(null);
@@ -33,12 +33,16 @@ export default function BusinessContextProvider({
 
   useEffect(() => {
     const fetchBusiness = async () => {
-      if (!isLoaded || !isSignedIn) return;
-
+      if (!isLoaded) return;
       setIsLoading(true);
 
       try {
-        const res = await fetch(`/api/business?id=${config.id}`);
+        const res = await fetch(`/api/business?id=${config.id}`, {
+          // 3600 = 1 hr
+          // next: {
+          //   revalidate: process.env.NODE_ENV === "development" ? 0 : 3600,
+          // },
+        });
 
         if (!res.ok) {
           setBusiness(null);
@@ -55,7 +59,7 @@ export default function BusinessContextProvider({
     };
 
     fetchBusiness();
-  }, [isLoaded, isSignedIn, lastUpdated]);
+  }, [isLoaded, lastUpdated]);
 
   return (
     <BusinessContext.Provider
