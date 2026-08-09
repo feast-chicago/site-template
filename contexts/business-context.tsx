@@ -37,7 +37,7 @@ export default function BusinessContextProvider({
       setIsLoading(true);
 
       try {
-        const res = await fetch(`/api/business?id=${config.id}`, {
+        const res = await fetch(`/api/businesses?id=${config.id}`, {
           // 3600 = 1 hr
           // next: {
           //   revalidate: process.env.NODE_ENV === "development" ? 0 : 3600,

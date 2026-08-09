@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   const query = supabase().from("businesses").select<"*", Business>();
 
   // Only filter by ID if one was provided.
-  // Otherwise, return all participants.
+  // Otherwise, return all businesses.
   const { data, error } = id ? await query.eq("id", id).single() : await query;
 
   if (error) return NextResponse.json({ error }, { status: 500 });
