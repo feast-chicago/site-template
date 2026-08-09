@@ -2,7 +2,6 @@ import { useBusinessContext } from "@/contexts/business-context";
 
 export default function Footer() {
   const { business, isLoading, error } = useBusinessContext();
-  const address = business?.business_address;
   return (
     <div className="w-full p-10 bg-primary text-primary-foreground">
       {isLoading ? (

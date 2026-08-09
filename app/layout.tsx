@@ -1,11 +1,10 @@
+import { Providers } from "@/components/ui/providers";
 import config from "@/feast.config";
+import { getBusiness } from "@/lib/business";
 import { primaryFont, secondaryFont } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
+import { cn, createTheme, generateCssVariables } from "@/lib/utils";
 import { Metadata } from "next";
 import "./globals.css";
-import { Providers } from "@/components/ui/providers";
-import { join } from "path";
-import { readFile } from "fs/promises";
 
 export const metadata: Metadata = {
   title: config.name,
@@ -17,14 +16,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Read the generated CSS file from disk
-  const cssPath = join(process.cwd(), "app", "globals.css");
-  const css = await readFile(cssPath, "utf8");
-
-  // Extract only the :root and .dark blocks
-  const rootMatch = css.match(/:root\s*\{[\s\S]*?\}/)?.[0] ?? "";
-  const darkMatch = css.match(/\.dark\s*\{[\s\S]*?\}/)?.[0] ?? "";
-  const cssVars = `${rootMatch}\n${darkMatch}`;
+  const business = await getBusiness();
+  const theme = business.theme;
+  const createdTheme = createTheme(theme);
+  const cssVars = generateCssVariables(createdTheme);
 
   return (
     <html
