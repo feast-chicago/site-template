@@ -1,11 +1,17 @@
+"use client";
+
 import { useBusinessContext } from "@/contexts/business-context";
+import { useUser } from "@clerk/nextjs";
 import { MapPin, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { business } = useBusinessContext();
-  let pathname: string = "/";
+  const pathname = usePathname();
+  const { isSignedIn } = useUser();
+
   // TODO: Turn these variables into configurable settings.
   let linkGap = "gap-5";
   let linksAlignment = "center";
@@ -17,7 +23,7 @@ export default function Navbar() {
     is_online_ordering_enabled,
     is_pos_enabled,
     is_reservations_enabled,
-    is_rewards_enabled,
+    is_customer_accounts_enabled,
     is_shop_page_enabled,
     is_catering_enabled,
   } = business.settings;
@@ -50,8 +56,8 @@ export default function Navbar() {
               href={link.href}
               className={
                 pathname === link.href
-                  ? "text-primary-foreground"
-                  : "text-primary-foreground/50"
+                  ? "border-b-2"
+                  : "border-b-2 border-transparent"
               }
             >
               {link.name}
@@ -80,7 +86,7 @@ export default function Navbar() {
                 <Link href="/reserve">Reserve a table</Link>
               )}
 
-              {(is_online_ordering_enabled || is_reservations_enabled) && (
+              {is_online_ordering_enabled && (
                 <Button variant="ghost" size="icon" className="text-white">
                   <ShoppingBag />
                 </Button>
@@ -88,7 +94,12 @@ export default function Navbar() {
             </div>
           )}
 
-          {is_rewards_enabled && <>Sign in</>}
+          {is_customer_accounts_enabled &&
+            (isSignedIn ? (
+              <Link href="/sign-in">Profile</Link>
+            ) : (
+              <Link href="/sign-in">Sign in / Join</Link>
+            ))}
         </span>
       </div>
     </nav>
