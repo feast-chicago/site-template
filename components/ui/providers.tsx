@@ -1,13 +1,20 @@
 "use client";
 
 import BusinessContextProvider from "@/contexts/business-context";
+import { Business } from "@/schema";
 import { ClerkProvider } from "@clerk/nextjs";
 import Footer from "../Footer";
+import Navbar from "../Navbar";
 import { Toaster } from "./sonner";
 import { ThemeProvider } from "./theme-provider";
-import Navbar from "../Navbar";
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  business,
+  children,
+}: {
+  business: Business;
+  children: React.ReactNode;
+}) {
   return (
     <ClerkProvider>
       <ThemeProvider
@@ -16,7 +23,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         enableSystem
         disableTransitionOnChange
       >
-        <BusinessContextProvider>
+        <BusinessContextProvider initialBusiness={business}>
           <div className="flex flex-col min-h-dvh">
             <Navbar />
             <main className="page-wrapper">{children}</main>

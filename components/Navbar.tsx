@@ -4,8 +4,8 @@ import { useBusinessContext } from "@/contexts/business-context";
 import { useUser } from "@clerk/nextjs";
 import { MapPin, ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
   const { business } = useBusinessContext();
@@ -15,8 +15,6 @@ export default function Navbar() {
   // TODO: Turn these variables into configurable settings.
   let linkGap = "gap-5";
   let linksAlignment = "center";
-
-  if (!business) return;
 
   const {
     is_menu_page_enabled,

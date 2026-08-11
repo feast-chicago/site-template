@@ -2,9 +2,9 @@ import { Providers } from "@/components/ui/providers";
 import config from "@/feast.config";
 import { getBusiness } from "@/lib/business";
 import { cn, createTheme, generateCssVariables } from "@/lib/utils";
+import { GoogleFont } from "@/schema";
 import { Metadata } from "next";
 import "./globals.css";
-import { GoogleFont } from "@/schema";
 
 export const metadata: Metadata = {
   title: config.name,
@@ -80,7 +80,7 @@ export default async function RootLayout({
           fontFamily: `"${primary_font.family}", ${primary_font.category}`,
         }}
       >
-        <Providers>{children}</Providers>
+        <Providers business={business}>{children}</Providers>
       </body>
     </html>
   );
