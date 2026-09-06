@@ -10,9 +10,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Analytics/>
+        <Analytics />
         <SpeedInsights />
-        {children}</body>
+        {children}
+      </body>
     </html>
   );
 }

@@ -17,7 +17,7 @@ export default function TextSection({
   const HeadingTag = props.headingSize ?? "h2";
 
   return (
-    <section className={`px-8 py-12 flex flex-col gap-4 ${alignClass}`}>
+    <section className={`p-1 flex flex-col gap-4 ${alignClass}`}>
       {props.heading && (
         <HeadingTag className="text-2xl font-secondary font-medium text-foreground">
           {props.heading}
